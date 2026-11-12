@@ -4,16 +4,19 @@
 // Storage
 #define RG_STORAGE_ROOT             "/sd"
 #define RG_STORAGE_SDSPI_HOST       SPI3_HOST
-#define RG_STORAGE_SDSPI_SPEED      SDMMC_FREQ_DEFAULT
+#define RG_STORAGE_SDSPI_SPEED      SDMMC_FREQ_HIGHSPEED
+// #define RG_STORAGE_SDMMC_HOST       SDMMC_HOST_SLOT_1
+// #define RG_STORAGE_SDMMC_SPEED      SDMMC_FREQ_DEFAULT
+// #define RG_STORAGE_FLASH_PARTITION  "vfs"
 
 // Audio
 #define RG_AUDIO_USE_INT_DAC        0   // 0 = Disable, 1 = GPIO25, 2 = GPIO26, 3 = Both
-#define RG_AUDIO_USE_EXT_DAC        1   // 0 = Disable, 1 = Enable
+#define RG_AUDIO_USE_EXT_DAC        0   // 0 = Disable, 1 = Enable (Zmen na 1 az pripojis I2S zesilovac)
 
 // Video
 #define RG_SCREEN_DRIVER            0   // 0 = ILI9341/ST7789
 #define RG_SCREEN_HOST              SPI2_HOST
-#define RG_SCREEN_SPEED             SPI_MASTER_FREQ_40M
+#define RG_SCREEN_SPEED             SPI_MASTER_FREQ_80M
 #define RG_SCREEN_BACKLIGHT         1
 #define RG_SCREEN_WIDTH             320
 #define RG_SCREEN_HEIGHT            240
@@ -31,8 +34,8 @@
     ILI9341_CMD(0xC1, 0x12);                  /* Power control   //SAP[2:0];BT[3:0] */                           \
     ILI9341_CMD(0xC5, 0x32, 0x3C);            /* VCM control */                                                  \
     ILI9341_CMD(0xC7, 0x91);                  /* VCM control2 */                                                 \
-    ILI9341_CMD(0x36, 0xA8);                  /* Otočení o 180 stupňů (MY|MV|BGR) */                             \
-    ILI9341_CMD(0xB1, 0x00, 0x10);            /* Frame Rate Control */                                           \
+    ILI9341_CMD(0x36, 0xA8);                  /* Otoceni o 180 stupnu (MY|MV|BGR) */                             \
+    ILI9341_CMD(0xB1, 0x00, 0x10);            /* Frame Rate Control (1B=70, 1F=61, 10=119) */                    \
     ILI9341_CMD(0xB6, 0x0A, 0xA2);            /* Display Function Control */                                     \
     ILI9341_CMD(0xF6, 0x01, 0x30);                                                                               \
     ILI9341_CMD(0xF2, 0x00);                  /* 3Gamma Function Disable */                                      \
