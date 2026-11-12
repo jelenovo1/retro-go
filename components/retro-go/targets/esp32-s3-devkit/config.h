@@ -5,9 +5,6 @@
 #define RG_STORAGE_ROOT             "/sd"
 #define RG_STORAGE_SDSPI_HOST       SPI3_HOST
 #define RG_STORAGE_SDSPI_SPEED      SDMMC_FREQ_DEFAULT
-// #define RG_STORAGE_SDMMC_HOST       SDMMC_HOST_SLOT_1
-// #define RG_STORAGE_SDMMC_SPEED      SDMMC_FREQ_DEFAULT
-// #define RG_STORAGE_FLASH_PARTITION  "vfs"
 
 // Audio
 #define RG_AUDIO_USE_INT_DAC        0   // 0 = Disable, 1 = GPIO25, 2 = GPIO26, 3 = Both
@@ -16,11 +13,11 @@
 // Video
 #define RG_SCREEN_DRIVER            0   // 0 = ILI9341/ST7789
 #define RG_SCREEN_HOST              SPI2_HOST
-#define RG_SCREEN_SPEED             SPI_MASTER_FREQ_40M // SPI_MASTER_FREQ_80M
+#define RG_SCREEN_SPEED             SPI_MASTER_FREQ_40M
 #define RG_SCREEN_BACKLIGHT         1
 #define RG_SCREEN_WIDTH             320
 #define RG_SCREEN_HEIGHT            240
-#define RG_SCREEN_ROTATE            2
+#define RG_SCREEN_ROTATE            0
 #define RG_SCREEN_VISIBLE_AREA      {0, 0, 0, 0}
 #define RG_SCREEN_SAFE_AREA         {0, 0, 0, 0}
 #define RG_SCREEN_INIT()                                                                                         \
@@ -34,8 +31,8 @@
     ILI9341_CMD(0xC1, 0x12);                  /* Power control   //SAP[2:0];BT[3:0] */                           \
     ILI9341_CMD(0xC5, 0x32, 0x3C);            /* VCM control */                                                  \
     ILI9341_CMD(0xC7, 0x91);                  /* VCM control2 */                                                 \
-    ILI9341_CMD(0x36, 0x68);                  /* Memory Access Control  (MX|MV|BGR) */                           \
-    ILI9341_CMD(0xB1, 0x00, 0x10);            /* Frame Rate Control (1B=70, 1F=61, 10=119) */                    \
+    ILI9341_CMD(0x36, 0xA8);                  /* Otočení o 180 stupňů (MY|MV|BGR) */                             \
+    ILI9341_CMD(0xB1, 0x00, 0x10);            /* Frame Rate Control */                                           \
     ILI9341_CMD(0xB6, 0x0A, 0xA2);            /* Display Function Control */                                     \
     ILI9341_CMD(0xF6, 0x01, 0x30);                                                                               \
     ILI9341_CMD(0xF2, 0x00);                  /* 3Gamma Function Disable */                                      \
@@ -58,7 +55,7 @@
 }
 
 // Battery
-#define RG_BATTERY_DRIVER           1
+#define RG_BATTERY_DRIVER           0
 #define RG_BATTERY_ADC_UNIT         ADC_UNIT_1
 #define RG_BATTERY_ADC_CHANNEL      ADC_CHANNEL_3
 #define RG_BATTERY_CALC_PERCENT(raw) (((raw) * 2.f - 3500.f) / (4200.f - 3500.f) * 100.f)
@@ -67,7 +64,7 @@
 // Status LED
 #define RG_GPIO_LED                 GPIO_NUM_38
 
-// SPI Display (back up working)
+// SPI Display
 #define RG_GPIO_LCD_MISO            GPIO_NUM_NC
 #define RG_GPIO_LCD_MOSI            GPIO_NUM_12
 #define RG_GPIO_LCD_CLK             GPIO_NUM_48
@@ -76,6 +73,7 @@
 #define RG_GPIO_LCD_BCKL            GPIO_NUM_39
 #define RG_GPIO_LCD_RST             GPIO_NUM_3
 
+// SPI SD Card
 #define RG_GPIO_SDSPI_MISO          GPIO_NUM_9
 #define RG_GPIO_SDSPI_MOSI          GPIO_NUM_11
 #define RG_GPIO_SDSPI_CLK           GPIO_NUM_13
