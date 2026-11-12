@@ -19,7 +19,7 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Build Docker Image
+    - name: Build
       uses: docker/build-push-action@v6
       with:
         context: .
@@ -28,15 +28,13 @@ jobs:
         cache-to: type=gha,mode=max
         load: true
 
-    - name: Build esp32-s3-devkit firmware
+    - name: Extract binaries from docker image
       run: |
         mkdir -p build
-        docker run --rm -v $(pwd):/src -w /src retro-go:latest bash -c "python3 rg_tool.py --target esp32-s3-devkit release && cp *.img *.fw build/ 2>/dev/null || true"
+        docker run --rm -v $(pwd)/build:/build retro-go:latest sh -c "cp /app/*.fw /app/*.img /build/ 2>/dev/null || true"
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: binaries
-        path: |
-          build/*.img
-          build/*.fw
+        path: build/*
