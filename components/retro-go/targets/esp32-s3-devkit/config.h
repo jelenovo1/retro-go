@@ -33,7 +33,7 @@
     ILI9341_CMD(0xC0, 0x1B);                  /* Power control   //VRH[5:0] */                          \
     ILI9341_CMD(0xC1, 0x12);                  /* Power control   //SAP[2:0];BT[3:0] */                  \
     ILI9341_CMD(0xC5, 0x32, 0x3C);            /* VCM control */                                         \
-    ILI9341_CMD(0xC7, 0x91);            /* VCM control2 */                                         \
+    ILI9341_CMD(0xC7, 0x91);                  /* VCM control2 */                                        \
     ILI9341_CMD(0x36, 0x68);                  /* Memory Access Control  (MX|MV|BGR) */                  \
     ILI9341_CMD(0xB1, 0x00, 0x10);            /* Frame Rate Control (1B=70, 1F=61, 10=119) */             \
     ILI9341_CMD(0xB6, 0x0A, 0xA2);            /* Display Function Control */                            \
@@ -43,9 +43,7 @@
     ILI9341_CMD(0xE0, 0x0F, 0x31, 0x2B, 0x0C, 0x0E, 0x08, 0x4E, 0xF1, 0x37, 0x07, 0x10, 0x03, 0x0E, 0x09, 0x00); \
     ILI9341_CMD(0xE1, 0x00, 0x0E, 0x14, 0x03, 0x11, 0x07, 0x31, 0xC1, 0x48, 0x08, 0x0F, 0x0C, 0x31, 0x36, 0x0F);
 
-
 // Input
-// Refer to rg_input.h to see all available RG_KEY_* and RG_GAMEPAD_*_MAP types
 #define RG_GAMEPAD_GPIO_MAP {\
     {RG_KEY_UP,     .num = GPIO_NUM_4,  .pullup = 1, .level = 0},\
     {RG_KEY_DOWN,   .num = GPIO_NUM_2,  .pullup = 1, .level = 0},\
@@ -66,11 +64,10 @@
 #define RG_BATTERY_CALC_PERCENT(raw) (((raw) * 2.f - 3500.f) / (4200.f - 3500.f) * 100.f)
 #define RG_BATTERY_CALC_VOLTAGE(raw) ((raw) * 2.f * 0.001f)
 
-
 // Status LED
 #define RG_GPIO_LED                 GPIO_NUM_38
 
-// SPI Display (back up working)
+// SPI Display
 #define RG_GPIO_LCD_MISO            GPIO_NUM_NC
 #define RG_GPIO_LCD_MOSI            GPIO_NUM_12
 #define RG_GPIO_LCD_CLK             GPIO_NUM_48
@@ -85,3 +82,6 @@
 #define RG_GPIO_SDSPI_CS            GPIO_NUM_10
 
 // External I2S DAC
+#define RG_GPIO_I2S_BCK             GPIO_NUM_NC
+#define RG_GPIO_I2S_LRCK            GPIO_NUM_NC
+#define RG_GPIO_I2S_DATA            GPIO_NUM_NC
